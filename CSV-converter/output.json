@@ -1,0 +1,20 @@
+{
+	"Row1" : {
+		"year": 2011,
+		"industry_code_ANZSIC": "A",
+		"industry_name_ANZSIC": "Agriculture, Forestry and Fishing",
+		"rme_size_grp": "a_0",
+		"variable": "Activity unit",
+		"value": 46134,
+		"unit": "COUNT"
+	},
+	"Row2" : {
+		"year": 2011,
+		"industry_code_ANZSIC": "A",
+		"industry_name_ANZSIC": "Agriculture, Forestry and Fishing",
+		"rme_size_grp": "a_0",
+		"variable": "Rolling mean employees",
+		"value": 0,
+		"unit": "COUNT"
+	}
+}
