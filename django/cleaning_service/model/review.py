@@ -10,7 +10,7 @@ class Review(models.Model):
     feedback = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     request_id = models.ForeignKey(Request, unique=True, on_delete=models.CASCADE)
-    service_id = models.ForeignKey(Service, unique=True, on_delete=models.CASCADE)
+    service_id = models.ForeignKey(Service, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __unicode__(self):
