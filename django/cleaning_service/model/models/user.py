@@ -1,5 +1,5 @@
 from django.db import models
-from roles import Roles
+from .roles import Roles
 
 
 class User(models.Model):
@@ -17,11 +17,3 @@ class User(models.Model):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
-
-
-
-
-
-
-
-
