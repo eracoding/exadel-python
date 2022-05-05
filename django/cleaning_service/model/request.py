@@ -9,7 +9,7 @@ class Request(models.Model):
     address = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     requestStatus_id = models.OneToOneField(RequestStatus, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, unique=True, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     company_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __unicode__(self):

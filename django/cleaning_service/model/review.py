@@ -6,7 +6,7 @@ from user import User
 
 
 class Review(models.Model):
-    rating = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
+    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     feedback = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     request_id = models.ForeignKey(Request, unique=True, on_delete=models.CASCADE)
