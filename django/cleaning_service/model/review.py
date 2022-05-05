@@ -6,8 +6,8 @@ from user import User
 
 
 class Review(models.Model):
-    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    feedback = models.TextField()
+    rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], null=True, blank=True)
+    feedback = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     request_id = models.ForeignKey(Request, unique=True, on_delete=models.CASCADE)
     service_id = models.ForeignKey(Service, on_delete=models.CASCADE)
