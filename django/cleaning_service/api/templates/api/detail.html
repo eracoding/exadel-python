@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block container %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">User Details #{{user.id}}</h5>
+    </div>
+    <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3">Full Name</dt>
+      <dd class="col-sm-9">{{ user.fullname }}</dd>
+      <dt class="col-sm-3">Phone</dt>
+      <dd class="col-sm-9">{{ user.phone }}</dd>
+      <dt class="col-sm-3">Email</dt>
+      <dd class="col-sm-9">{{ user.email }}</dd>
+      <dt class="col-sm-3">Role</dt>
+      <dd class="col-sm-9">{{ user.role }}</dd>
+    </dl>
+
+    </div>
+</div>
+
+{% endblock %}
+</body>
+</html>
