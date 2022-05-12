@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% block container %}
+{% extends 'base.html' %}
+{% block content %}
 <div class="card">
     <div class="card-header">
         <h5 class="card-title">Delete User #{{object.id}}</h5>
@@ -21,5 +15,3 @@
     </div>
 </div>
 {% endblock %}
-</body>
-</html>
