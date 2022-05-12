@@ -13,12 +13,6 @@ class Roles(models.Model):
         default=RolesEnum.USER,
     )
 
-    def __unicode__(self):
-        return self.name
-
-    def __str__(self):
-        return self.__unicode__()
-
     class Meta:
         verbose_name = 'Role'
         verbose_name_plural = 'Roles'
