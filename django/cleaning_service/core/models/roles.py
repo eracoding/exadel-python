@@ -13,6 +13,9 @@ class Roles(models.Model):
         default=RolesEnum.USER,
     )
 
+    def __str__(self):
+        return str(self.name)
+
     class Meta:
         verbose_name = 'Role'
         verbose_name_plural = 'Roles'
