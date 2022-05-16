@@ -1,24 +1,8 @@
-from rest_framework import generics
+from rest_framework import viewsets
 from api.serializers import RequestSerializer
 from core.models import Request
 
 
-class RequestListView(generics.ListAPIView):
+class RequestViewSet(viewsets.ModelViewSet):
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
-
-
-class RequestCreateView(generics.CreateAPIView):
-    queryset = Request.objects.all()
-    serializer_class = RequestSerializer
-
-
-class RequestUpdateView(generics.RetrieveUpdateAPIView):
-    queryset = Request.objects.all()
-    serializer_class = RequestSerializer
-
-
-class RequestDeleteView(generics.DestroyAPIView):
-    queryset = Request.objects.all()
-    serializer_class = RequestSerializer
-

@@ -13,7 +13,7 @@ class Request(models.Model):
     company_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name='company_id')
 
     def __unicode__(self):
-        return u'%s, %s, %s' % (self.address, self.area_total, self.cost_total)
+        return u'%s, %s, %s, %s' % (self.user_id, self.address, self.area_total, self.cost_total)
 
     def __str__(self):
         return self.__unicode__()

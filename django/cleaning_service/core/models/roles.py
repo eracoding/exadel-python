@@ -14,7 +14,10 @@ class Roles(models.Model):
     )
 
     def __str__(self):
-        return str(self.name)
+        if self.name == 1:
+            return 'Ordinary User'
+        elif self.name == 2:
+            return 'Company'
 
     class Meta:
         verbose_name = 'Role'
