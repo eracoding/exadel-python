@@ -12,10 +12,10 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ('user_id', 'service_id', 'request_id', 'rating', 'feedback', 'created_at')
 
     def get_user_id(self, obj):
-        return str(obj.user_id.fullname)
+        return obj.user_id.fullname
 
     def get_service_id(self, obj):
-        return str(obj.service_id.name)
+        return obj.service_id.name
 
     def get_request_id(self, obj):
         return str(obj.request_id)

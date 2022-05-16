@@ -10,4 +10,4 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = ('name', 'cost', 'company_id')
 
     def get_company_id(self, obj):
-        return str(obj.company_id.fullname)
+        return obj.company_id.fullname

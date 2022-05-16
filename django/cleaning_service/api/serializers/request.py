@@ -12,10 +12,10 @@ class RequestSerializer(serializers.ModelSerializer):
         fields = ('user_id', 'company_id', 'requestStatus_id', 'cost_total', 'address', 'created_at')
 
     def get_user_id(self, obj):
-        return str(obj.user_id.fullname)
+        return obj.user_id.fullname
 
     def get_company_id(self, obj):
-        return str(obj.company_id.fullname)
+        return obj.company_id.fullname
 
     def get_requestStatus_id(self, obj):
         return str(obj.requestStatus_id)
