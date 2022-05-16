@@ -13,6 +13,12 @@ class Roles(models.Model):
         default=RolesEnum.USER,
     )
 
+    def __str__(self):
+        if self.name == 1:
+            return 'Ordinary User'
+        elif self.name == 2:
+            return 'Company'
+
     class Meta:
         verbose_name = 'Role'
         verbose_name_plural = 'Roles'

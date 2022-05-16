@@ -13,6 +13,14 @@ class RequestStatus(models.Model):
         choices=RequestStatusEnum.choices,
     )
 
+    def __str__(self):
+        if self.status == 1:
+            return 'Pending'
+        elif self.status == 2:
+            return 'Canceled'
+        elif self.status == 3:
+            return 'Completed'
+
     class Meta:
         verbose_name = 'Request Status'
         verbose_name_plural = 'Request Statuses'
