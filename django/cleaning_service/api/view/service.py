@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from api.serializers import ServiceSerializer
 from core.models import Service
 from rest_framework.generics import get_object_or_404
@@ -6,6 +7,7 @@ from rest_framework.response import Response
 
 
 class ServiceViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
 
