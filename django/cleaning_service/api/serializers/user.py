@@ -7,7 +7,18 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('fullname', 'phone', 'email', 'role')
+        fields = ('fullname', 'phone', 'email', 'role', 'password')
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
     def get_role(self, obj):
         return str(obj.role)
+
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        obj = self.Meta.model(**validated_data)
+        if password is not None:
+            obj.set_password(password)
+        obj.save()
+        return obj
