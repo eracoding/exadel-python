@@ -25,6 +25,22 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def create_superuser(self, email, role, fullname, phone, password):
+
+        if password is None:
+            raise TypeError('Superusers must have a password.')
+        roles = Roles.objects.get(name=role)
+        user = self.create_user(
+            email=self.normalize_email(email),
+            role=roles,
+            fullname=fullname,
+            phone=phone,
+            password=password)
+        user.is_admin = True
+        user.save()
+
+        return user
+
 
 class User(AbstractBaseUser):
     fullname = models.CharField(max_length=255)
