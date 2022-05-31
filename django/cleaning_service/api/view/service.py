@@ -29,9 +29,16 @@ class ServiceViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+    def update(self, request, pk=None):
+        service = get_object_or_404(Service, pk=pk)
+        serializer = ServiceSerializer(instance=service, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def delete(self, request, pk=None):
-        user = get_object_or_404(Service, pk=pk)
-        serializer = ServiceSerializer(user, data=request.data)
+        service = get_object_or_404(Service, pk=pk)
+        serializer = ServiceSerializer(service, data=request.data)
         if serializer.is_valid():
             serializer.delete()
             return Response(serializer.data)

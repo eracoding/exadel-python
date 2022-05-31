@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from core.models import User, Service, Roles, Review, Request, RequestStatus
+from core.models import User, Service, Roles, Review, RequestModel, RequestStatus
 
 
 class UserCreationForm(forms.ModelForm):
@@ -59,10 +59,11 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
 admin.site.register(Service)
 admin.site.register(Review)
-admin.site.register(Request)
+admin.site.register(RequestModel)
 admin.site.register(RequestStatus)
 admin.site.register(Roles)

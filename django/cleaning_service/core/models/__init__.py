@@ -1,4 +1,4 @@
-from .request import Request
+from .request import RequestModel
 from .review import Review
 from .roles import Roles
 from .service import Service
