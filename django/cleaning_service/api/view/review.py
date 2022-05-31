@@ -29,6 +29,13 @@ class ReviewViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
 
+    def update(self, request, pk=None):
+        review = get_object_or_404(Review, pk=pk)
+        serializer = ReviewSerializer(instance=review, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def delete(self, request, pk=None):
         user = get_object_or_404(Review, pk=pk)
         serializer = ReviewSerializer(user, data=request.data)

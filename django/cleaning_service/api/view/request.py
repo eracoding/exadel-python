@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from api.serializers import RequestSerializer
 from core.models import RequestModel
 from rest_framework.generics import get_object_or_404
@@ -8,6 +9,7 @@ from rest_framework.response import Response
 class RequestViewSet(viewsets.ModelViewSet):
     queryset = RequestModel.objects.all()
     serializer_class = RequestSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def list(self, request):
         queryset = RequestModel.objects.all()
@@ -26,6 +28,13 @@ class RequestViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+    def update(self, request, pk=None):
+        request = get_object_or_404(RequestModel, pk=pk)
+        serializer = RequestSerializer(instance=request, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, pk=None):
         user = get_object_or_404(RequestModel, pk=pk)

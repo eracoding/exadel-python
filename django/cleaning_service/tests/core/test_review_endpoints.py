@@ -40,12 +40,11 @@ class TestReviewsEndpoint:
             feedback=review.feedback
         )
 
-        response = api_client().post('/api/review', payload)
+        response = api_client().post(self.endpoint, payload)
 
         review_from_db = Review.objects.all().first()
 
-        assert response.status_code == 201 or response.status_code == 301
-        assert payload["feedback"] == review_from_db.feedback
+        assert response.status_code == 403 or response.status_code == 401
 
     def test_retrieve(self, api_client, auth_client):
         review = baker.make(Review)
@@ -63,7 +62,7 @@ class TestReviewsEndpoint:
         assert service_from_db.id == review.id
         assert response.status_code == 200
 
-    def test_update(self, api_client, auth_client):
+    def test_update(self, auth_client):
         client = auth_client
         review = baker.make(Review)
         payload = dict(
@@ -76,9 +75,35 @@ class TestReviewsEndpoint:
         payload2 = dict(
             feedback='abcd'
         )
-        auth_client.put(f'/api/review/{review.id}', payload2)
+        auth_client.put(f'/api/review/{review.id}/update/', payload2)
 
         service_from_db = Review.objects.all().first()
 
         assert service_from_db.feedback == payload['feedback']
 
+    def test_delete(self, auth_client):
+        review = baker.make(Review)
+        response = auth_client.delete(f'{self.endpoint}{review.id}/delete')
+
+        assert response.status_code == 204
+
+    def test_not_found(self, api_client, auth_client):
+        review = baker.make(Review)
+        payload = dict(
+            rating=review.rating,
+            feedback=review.feedback
+        )
+        auth_client.post('/api/review', payload)
+
+        response = api_client().get(f'/api/review/{review.id+1}')
+
+        assert response.status_code == 404
+
+    def test_missing_value(self, auth_client):
+        review = baker.make(Review)
+        payload = dict(
+            rating=review.rating
+        )
+        response = auth_client.post('/api/review/create', payload)
+
+        assert response.status_code == 400
