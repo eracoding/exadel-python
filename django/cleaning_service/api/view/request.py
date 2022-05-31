@@ -30,8 +30,8 @@ class RequestViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=400)
 
     def update(self, request, pk=None):
-        request = get_object_or_404(RequestModel, pk=pk)
-        serializer = RequestSerializer(instance=request, data=request.data)
+        req = get_object_or_404(RequestModel, pk=pk)
+        serializer = RequestSerializer(instance=req, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)

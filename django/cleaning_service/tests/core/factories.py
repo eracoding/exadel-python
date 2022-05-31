@@ -36,5 +36,5 @@ class ReviewFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Review
 
-    rating = '5'
-
+    rating = 5
+    feedback = fake.paragraph()

@@ -15,7 +15,7 @@ user_retrieve = view.UserViewSet.as_view({
 })
 
 user_update = view.UserViewSet.as_view({
-    'post': 'update'
+    'put': 'update'
 })
 
 user_delete = view.UserViewSet.as_view({
@@ -35,7 +35,7 @@ service_retrieve = view.ServiceViewSet.as_view({
 })
 
 service_update = view.ServiceViewSet.as_view({
-    'post': 'update'
+    'put': 'update'
 })
 
 service_delete = view.ServiceViewSet.as_view({
@@ -55,7 +55,7 @@ request_retrieve = view.RequestViewSet.as_view({
 })
 
 request_update = view.RequestViewSet.as_view({
-    'post': 'update'
+    'put': 'update'
 })
 
 request_delete = view.RequestViewSet.as_view({
@@ -75,7 +75,7 @@ review_retrieve = view.ReviewViewSet.as_view({
 })
 
 review_update = view.ReviewViewSet.as_view({
-    'post': 'update'
+    'put': 'update'
 })
 
 review_delete = view.ReviewViewSet.as_view({
