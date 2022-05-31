@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import Request
+from core.models import RequestModel
 
 
 class RequestSerializer(serializers.ModelSerializer):
@@ -8,7 +8,7 @@ class RequestSerializer(serializers.ModelSerializer):
     requestStatus_id = serializers.SerializerMethodField()
 
     class Meta:
-        model = Request
+        model = RequestModel
         fields = ('user_id', 'company_id', 'requestStatus_id', 'cost_total', 'address', 'created_at')
 
     def get_user_id(self, obj):

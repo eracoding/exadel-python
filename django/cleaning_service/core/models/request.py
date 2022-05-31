@@ -3,7 +3,7 @@ from .requestStatus import RequestStatus
 from .user import User
 
 
-class Request(models.Model):
+class RequestModel(models.Model):
     area_total = models.IntegerField(null=False)
     cost_total = models.DecimalField(max_digits=8, decimal_places=2 ,null=False)
     address = models.CharField(max_length=255, null=False)
@@ -19,5 +19,5 @@ class Request(models.Model):
         return self.__unicode__()
 
     class Meta:
-        verbose_name = 'Request'
-        verbose_name_plural = 'Requests'
+        verbose_name = 'Request Model'
+        verbose_name_plural = 'Request Models'

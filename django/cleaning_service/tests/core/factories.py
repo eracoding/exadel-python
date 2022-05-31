@@ -1,37 +1,40 @@
-import pytest
-from model_bakery import baker
+import factory
+
+from core.models import User, Review, RequestModel, Service
+from faker import Faker
+
+fake = Faker()
 
 
-def uubb():
-    def unfilled_user_bakery_batch(n):
-        uubb = baker.make(
-            'core.User',
-            _quantity=n
-        )
-        return uubb
+class UserFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = User
 
-    return unfilled_user_bakery_batch
-
-
-@pytest.fixture
-def fubb():
-    def filled_user_bakery_batch(n):
-        uubb = baker.make(
-            'core.User',
-            _quantity=n
-        )
-        return uubb
-
-    return filled_user_bakery_batch
+    fullname = fake.name()
+    email = fake.email()
+    password = fake.password()
+    phone = fake.phone_number()
 
 
-@pytest.fixture
-def fub():
-    def filled_user_bakery():
-        uubb = baker.make(
-            'core.User',
-            role=baker.make('core.Roles')
-        )
-        return uubb
+class RequestFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = RequestModel
 
-    return filled_user_bakery
+    area_total = fake.ean(length=8)
+    cost_total = '14.5'
+
+
+class ServiceFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Service
+
+    name = fake.pystr()
+    cost = 10.0
+
+
+class ReviewFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Review
+
+    rating = '5'
+

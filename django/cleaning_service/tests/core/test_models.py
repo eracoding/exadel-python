@@ -1,69 +1,36 @@
-import json
 import pytest
+from core.models import User, Service, RequestModel, Roles, RequestStatus
+from faker import Faker
 
-from core.models import User
+fake = Faker()
 
 
-pytestmark = pytest.mark.django_db
+@pytest.mark.django_db
+def test_user(user_factory):
+    user = user_factory.build()
+    role = Roles.objects.get(name=1)
+    user.role = role
+    user.save()
+    assert User.objects.count() == 1
 
 
-class TestUserEndpoints:
+@pytest.mark.django_db
+def test_request(request_factory, user_factory):
+    req = request_factory.build()
+    req.user_id = user_factory.create()
+    company = user_factory.build()
+    company.email = fake.email()
+    req.company_id = company
+    req.requestStatus_id = RequestStatus.objects.get(status=1)
+    company.save()
+    req.save()
+    assert RequestModel.objects.count() == 1
 
-    endpoint = '/api/user/'
 
-    def test_list(self, api_client, uubb):
-        client = api_client()
-        uubb(3)
-        url = self.endpoint
-        response = client.get(url)
+@pytest.mark.django_db
+def test_service(service_factory, user_factory):
+    service = service_factory.build()
+    service.company_id = user_factory.create()
+    service.save()
+    assert Service.objects.count() == 1
 
-        assert response.status_code == 200
-        assert len(json.loads(response.content)) == 3
-
-    def test_create(self, api_client, uubb):
-        client = api_client()
-        t = uubb(1)[0]
-        valid_data_dict = {
-            'password': t.password,
-            'role': t.role.name,
-            'fullname': t.fullname,
-            'email': t.email,
-            'phone': t.phone
-        }
-
-        url = f'{self.endpoint}create/'
-
-        response = client.post(
-            url,
-            valid_data_dict,
-            format='json'
-        )
-
-        assert response.status_code == 201
-        assert json.loads(response.content) == valid_data_dict
-        assert User.objects.last().link
-
-    def test_retrieve(self, api_client, fub):
-        t = fub()
-        t = User.objects.last()
-        expected_json = t.__dict__
-        expected_json['role'] = t.role.name
-
-        expected_json.pop('_state')
-        expected_json.pop('user_id')
-        url = f'{self.endpoint}{t.id}/'
-
-        response = api_client().get(url)
-
-        assert response.status_code == 200 or response.status_code == 301
-        assert json.loads(response.content) == expected_json
-
-    def test_delete(self, api_client, uubb):
-        user = uubb(1)[0]
-        url = f'{self.endpoint}{user.id}/delete/'
-
-        response = api_client().delete(
-            url
-        )
-
-        assert response.status_code == 204 or response.status_code == 301
