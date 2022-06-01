@@ -213,3 +213,5 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_COLLAPSED': True,
     'SQL_WARNING_THRESHOLD': 100,
 }
+
+CELERY_BROKER_URL = 'amqp://localhost'

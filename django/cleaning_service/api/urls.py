@@ -106,4 +106,6 @@ urlpatterns = format_suffix_patterns([
     path('review/create', review_create, name='review-create'),
     path('review/<int:pk>/update', review_update, name='review-update'),
     path('review/<int:pk>/delete', review_delete, name='review-delete'),
+
+    path('celery', view.GenerateRandomUserView.as_view()),
 ])
