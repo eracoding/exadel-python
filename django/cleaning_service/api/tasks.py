@@ -1,9 +1,9 @@
 from core.models import User
 from model_bakery import baker
-from celery import shared_task
+from final_project.celery import app
 
 
-@shared_task
+@app.task(name='create_users')
 def create_users(n):
-    baker.make(User, _quantity=n)
-    return f'{n} random users created with success!'
+    users = baker.make(User, _quantity=n)
+    return n
