@@ -14,4 +14,4 @@ class GenerateRandomUserView(FormView):
         total = form.cleaned_data.get('total')
         create_users.delay(total)
         messages.success(self.request, 'We are generating your random users! Wait a moment and refresh this page.')
-        return redirect('user-list')
+        return redirect('userCrud-list')

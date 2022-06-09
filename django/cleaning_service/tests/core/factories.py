@@ -20,8 +20,8 @@ class RequestFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = RequestModel
 
-    area_total = fake.ean(length=8)
-    cost_total = '14.5'
+    area_total = 15
+    cost_total = 15
 
 
 class ServiceFactory(factory.django.DjangoModelFactory):

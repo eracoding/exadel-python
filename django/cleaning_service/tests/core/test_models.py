@@ -15,24 +15,30 @@ def test_user(user_factory):
 
 
 @pytest.mark.django_db
-def test_request(request_factory, user_factory):
-    req = request_factory.build()
-    req.user_id = user_factory.create()
-    company = user_factory.build()
-    company.email = fake.email()
-    req.company_id = company
-    req.requestStatus_id = RequestStatus.objects.get(status=1)
-    company.save()
-    req.save()
-    assert RequestModel.objects.count() == 1
-
-
-@pytest.mark.django_db
 def test_service(service_factory, user_factory):
     service = service_factory.build()
     service.company_id = user_factory.create()
     service.save()
     assert Service.objects.count() == 1
+
+
+@pytest.mark.django_db
+def test_request(request_factory, user_factory, service_factory):
+    req = request_factory.build()
+    req.user_id = user_factory.create()
+    company = user_factory.build()
+    company.email = fake.email()
+
+    service = service_factory.build()
+    service.company_id = company
+
+    req.service_id = service
+    req.requestStatus_id = RequestStatus.objects.get(status=1)
+
+    company.save()
+    service.save()
+    req.save()
+    assert RequestModel.objects.count() == 1
 
 
 @pytest.mark.django_db
@@ -46,13 +52,13 @@ def test_review(review_factory, service_factory, user_factory, request_factory):
     company.role = role
     company.email = fake.email()
 
-    req = request_factory.build()
-    req.user_id = user
-    req.company_id = company
-    req.requestStatus_id = RequestStatus.objects.get(status=1)
-
     service = service_factory.build()
     service.company_id = company
+
+    req = request_factory.build()
+    req.user_id = user
+    req.service_id = service
+    req.requestStatus_id = RequestStatus.objects.get(status=1)
 
     review = review_factory.build()
     review.user_id = user
@@ -61,7 +67,7 @@ def test_review(review_factory, service_factory, user_factory, request_factory):
 
     user.save()
     company.save()
-    req.save()
     service.save()
+    req.save()
     review.save()
     assert Review.objects.count() == 1

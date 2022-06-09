@@ -215,3 +215,6 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 CELERY_BROKER_URL = 'amqp://localhost'
+
+USER_EMAIL_LOGIN = 'testcleaningservice1@gmail.com'
+USER_EMAIL_PASSWORD = 'Clean123$'
