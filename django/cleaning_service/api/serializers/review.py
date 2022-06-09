@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from core.models import Review
+from core.models import Review, User
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    user_id = serializers.SerializerMethodField()
-    service_id = serializers.SerializerMethodField()
-    request_id = serializers.SerializerMethodField()
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role=1))
+    # service_id = serializers.SerializerMethodField()
+    # request_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Review

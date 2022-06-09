@@ -1,19 +1,30 @@
+from rest_framework import viewsets, status
 from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+from rest_framework.schemas import SchemaGenerator
+from rest_framework_swagger import renderers
+from api.permissions import IsAuthenticatedOrReadOnly
 from api.serializers import UserSerializer
 from core.models import User
-from rest_framework import viewsets, status
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    # renderer_classes = [
+    #     renderers.OpenAPIRenderer,
+    #     renderers.SwaggerUIRenderer
+    # ]
 
     def list(self, request):
         queryset = User.objects.all()
         serializer = UserSerializer(queryset, many=True)
+        for i in range(len(serializer.data)):
+            if serializer.data[i]['role'] == 1:
+                serializer.data[i]['role'] = 'Ordinary User'
+            elif serializer.data[i]['role'] == 2:
+                serializer.data[i]['role'] = 'Company'
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
@@ -36,8 +47,7 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def delete(self, request, pk=None):
+    def delete(self, pk=None):
         user = get_object_or_404(User, pk=pk)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-

@@ -4,7 +4,7 @@ from .user import User
 
 class Service(models.Model):
     name = models.CharField(max_length=255, null=False)
-    cost = models.DecimalField(max_digits=6, decimal_places=2, null=False)
+    cost = models.IntegerField(null=False)
     company_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 
     def __unicode__(self):
@@ -12,6 +12,9 @@ class Service(models.Model):
 
     def __str__(self):
         return self.__unicode__()
+
+    def company_filter(self):
+        return self.User.filter(role=2)
 
     class Meta:
         verbose_name = 'Service'

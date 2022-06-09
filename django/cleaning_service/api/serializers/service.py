@@ -1,13 +1,23 @@
 from rest_framework import serializers
-from core.models import Service
+from core.models import Service, User
+from api.serializers.user import UserSerializer
+
+
+class AttrCMPField(serializers.PrimaryKeyRelatedField):
+    def get_queryset(self):
+        queryset = User.objects.filter(role=1)
+        return queryset
 
 
 class ServiceSerializer(serializers.ModelSerializer):
-    company_id = serializers.SerializerMethodField()
+    company_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role=2))
 
     class Meta:
         model = Service
-        fields = ('name', 'cost', 'company_id')
+        fields = ('id', 'name', 'cost', 'company_id')
 
-    def get_company_id(self, obj):
-        return obj.company_id.fullname
+    # def get_companies(self):
+    #     companies = User.objects.all().filter(role=2)
+    #     serializer = UserSerializer(instance=companies, many=True, context=self.context)
+    #
+    #     return companies

@@ -1,4 +1,4 @@
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from api.serializers import ReviewSerializer
 from core.models import Review
 from rest_framework.generics import get_object_or_404

@@ -35,7 +35,7 @@ service_retrieve = view.ServiceViewSet.as_view({
 })
 
 service_update = view.ServiceViewSet.as_view({
-    'put': 'update'
+    'put': 'update',
 })
 
 service_delete = view.ServiceViewSet.as_view({
@@ -83,7 +83,7 @@ review_delete = view.ReviewViewSet.as_view({
 })
 
 urlpatterns = format_suffix_patterns([
-    path('user/', user_list, name='user-list'),
+    path('user/', user_list, name='userCrud-list'),
     path('user/<int:pk>', user_retrieve, name='user-retrieve'),
     path('user/create', user_create, name='user-create'),
     path('user/<int:pk>/update', user_update, name='user-update'),
