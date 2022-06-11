@@ -8,8 +8,7 @@ from django.contrib.auth.models import (
 class MyUserManager(BaseUserManager):
     def create_user(self, email, role, fullname, phone, password=None):
         """
-        Creates and saves a User with the given email, date of
-        birth and password.
+        Creates and saves a User with the given email, role, fullname, phone and password.
         """
         if not email:
             raise ValueError('Users must have an email address')
@@ -20,9 +19,10 @@ class MyUserManager(BaseUserManager):
             fullname=fullname,
             phone=phone,
         )
-
+        user.is_active = True
         user.set_password(password)
         user.save(using=self._db)
+
         return user
 
     def create_superuser(self, email, role, fullname, phone, password):
@@ -36,6 +36,7 @@ class MyUserManager(BaseUserManager):
             fullname=fullname,
             phone=phone,
             password=password)
+        user.is_active = True
         user.is_admin = True
         user.save()
 
@@ -49,7 +50,7 @@ class User(AbstractBaseUser):
     role = models.ForeignKey(Roles, on_delete=models.CASCADE, null=False, default=1)
     password = models.CharField(max_length=255)
     username = None
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()
