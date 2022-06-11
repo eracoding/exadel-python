@@ -1,0 +1,39 @@
+version : "3.8"
+services:
+  app:
+    build: .
+    volumes:
+      - .:/final_project
+    ports:
+      - 8000:8000
+    image: app:django
+    container_name: django_container
+    command: python manage.py runserver 0.0.0.0:8000
+
+  rabbitmq3:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbitmq3
+    environment: &env
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"  
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "password"
+      RABBITMQ_DEFAULT_VHOST: "/"
+      CELERY_BROKER_URL: "amqp://user:password@rabbitmq3:5672"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes: 
+      - .:/final_project
+
+  celery:
+    restart: always
+    build:
+      context: .
+    command: celery -A final_project worker -l INFO
+    volumes:
+      - .:/final_project
+    environment:
+      <<: *env
+    depends_on:
+      - rabbitmq3
+      - app

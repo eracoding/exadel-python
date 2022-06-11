@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of final_project and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -184,6 +185,7 @@ SWAGGER_SETTINGS = {
         }
     },
 }
+
 LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
 
@@ -214,7 +216,41 @@ DEBUG_TOOLBAR_CONFIG = {
     'SQL_WARNING_THRESHOLD': 100,
 }
 
-CELERY_BROKER_URL = 'amqp://localhost'
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+# ACCOUNT_ACTIVATION_DAYS = 3
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'testcleaningservice1@gmail.com'
+EMAIL_HOST_PASSWORD = 'hrfsozqigwthanta'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'testcleaningservice1@gmail.com'
+# EMAIL_TIMEOUT =
 
-USER_EMAIL_LOGIN = 'testcleaningservice1@gmail.com'
-USER_EMAIL_PASSWORD = 'Clean123$'
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'SET_USERNAME_RETYPE': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'auth/users/activation/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {
+        'user': 'api.serializers.UserSerializer',
+    }
+}
+
+SITE_NAME = "final_project"
+
+# RABBITMQ = {
+#     "PROTOCOL": "amqp",
+#     "HOST": os.getenv("RABBITMQ_HOST", "localhost"),
+#     "PORT": os.getenv("RABBITMQ_PORT", 5672),
+#     "USER": os.getenv("RABBITMQ_USER", "guest"),
+#     "PASSWORD": os.getenv("RABBITMQ_PASSWORD", "guest"),
+# }
+#
+# CELERY_BROKER_URL = f"{RABBITMQ['PROTOCOL']}://{RABBITMQ['USER']}:{RABBITMQ['PASSWORD']}@{RABBITMQ['HOST']}:{RABBITMQ['PORT']}"

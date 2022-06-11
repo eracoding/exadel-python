@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.views.generic.edit import FormView
 from django.shortcuts import redirect
-
 from api.forms import GenerateRandomUserForm
 from api.tasks import create_users
 
