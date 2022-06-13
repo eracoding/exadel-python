@@ -42,11 +42,12 @@ class UserChangeForm(forms.ModelForm):
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('email', 'role', 'is_admin', 'fullname', 'phone')
+    list_display = ('id', 'email', 'role', 'is_admin', 'fullname', 'phone')
     list_filter = ('is_admin', 'is_active')
+    readonly_fields = ('id',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('role', 'fullname', 'phone')}),
+        ('Personal info', {'fields': ('id', 'role', 'fullname', 'phone')}),
         ('Permissions', {'fields': ('is_admin', 'is_active')}),
     )
     add_fieldsets = (
