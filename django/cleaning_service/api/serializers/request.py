@@ -3,13 +3,13 @@ from core.models import RequestModel, User
 
 
 class RequestSerializer(serializers.ModelSerializer):
-    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role=1))
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role=1, is_active=True))
     # service_id = serializers.SerializerMethodField()
     # requestStatus_id = serializers.SerializerMethodField()
 
     class Meta:
         model = RequestModel
-        fields = ('user_id', 'service_id', 'requestStatus_id', 'area_total', 'address', 'created_at', 'cost_total')
+        fields = ('id', 'user_id', 'service_id', 'requestStatus_id', 'area_total', 'address', 'created_at', 'cost_total')
         extra_kwargs = {
             'cost_total': {'read_only': True}
         }

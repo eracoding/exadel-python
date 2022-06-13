@@ -19,7 +19,7 @@ user_update = view.UserViewSet.as_view({
 })
 
 user_delete = view.UserViewSet.as_view({
-    'delete': 'destroy'
+    'delete': 'delete'
 })
 
 service_list = view.ServiceViewSet.as_view({
@@ -39,7 +39,7 @@ service_update = view.ServiceViewSet.as_view({
 })
 
 service_delete = view.ServiceViewSet.as_view({
-    'delete': 'destroy'
+    'delete': 'delete'
 })
 
 request_list = view.RequestViewSet.as_view({
@@ -59,7 +59,7 @@ request_update = view.RequestViewSet.as_view({
 })
 
 request_delete = view.RequestViewSet.as_view({
-    'delete': 'destroy'
+    'delete': 'delete'
 })
 
 review_list = view.ReviewViewSet.as_view({
@@ -79,33 +79,33 @@ review_update = view.ReviewViewSet.as_view({
 })
 
 review_delete = view.ReviewViewSet.as_view({
-    'delete': 'destroy'
+    'delete': 'delete'
 })
 
 urlpatterns = format_suffix_patterns([
     path('user/', user_list, name='userCrud-list'),
-    path('user/<int:pk>', user_retrieve, name='user-retrieve'),
     path('user/create', user_create, name='user-create'),
-    path('user/<int:pk>/update', user_update, name='user-update'),
-    path('user/<int:pk>/delete', user_delete, name='user-delete'),
+    path('user/<str:pk>', user_retrieve, name='user-retrieve'),
+    path('user/<str:pk>/update', user_update, name='user-update'),
+    path('user/<str:pk>/delete', user_delete, name='user-delete'),
 
     path('service/', service_list, name='service-list'),
-    path('service/<int:pk>', service_retrieve, name='service-retrieve'),
     path('service/create', service_create, name='service-create'),
-    path('service/<int:pk>/update', service_update, name='service-update'),
-    path('service/<int:pk>/delete', service_delete, name='service-delete'),
+    path('service/<str:pk>', service_retrieve, name='service-retrieve'),
+    path('service/<str:pk>/update', service_update, name='service-update'),
+    path('service/<str:pk>/delete', service_delete, name='service-delete'),
 
     path('request/', request_list, name='request-list'),
-    path('request/<int:pk>', request_retrieve, name='request-retrieve'),
     path('request/create', request_create, name='request-create'),
-    path('request/<int:pk>/update', request_update, name='request-update'),
-    path('request/<int:pk>/delete', request_delete, name='request-delete'),
+    path('request/<str:pk>', request_retrieve, name='request-retrieve'),
+    path('request/<str:pk>/update', request_update, name='request-update'),
+    path('request/<str:pk>/delete', request_delete, name='request-delete'),
 
     path('review/', review_list, name='review-list'),
-    path('review/<int:pk>', review_retrieve, name='review-retrieve'),
     path('review/create', review_create, name='review-create'),
-    path('review/<int:pk>/update', review_update, name='review-update'),
-    path('review/<int:pk>/delete', review_delete, name='review-delete'),
+    path('review/<str:pk>', review_retrieve, name='review-retrieve'),
+    path('review/<str:pk>/update', review_update, name='review-update'),
+    path('review/<str:pk>/delete', review_delete, name='review-delete'),
 
     path('celery', view.GenerateRandomUserView.as_view()),
     path('activate/<str:uid>/<str:token>', view.UserActivationView.as_view(), name='custom-user-activation'),
